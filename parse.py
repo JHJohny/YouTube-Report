@@ -38,20 +38,12 @@ class HTML:
         return times
 
     def search_history(self):
-        search_raw = []
-        search_clean = []
-        pattern = re.compile(r"search_query=[^%].*?>")
+        pattern = re.compile(r"(?<=search_query=)(.*?)(?=\">)")
         match_list = pattern.findall(str(HTML.html_search))
 
-        # save links into list
-        for match in match_list:
-            match = match[13:][:-2]
-            match = match.split("+")
-            search_raw.append(match)
-        for word in list(itertools.chain.from_iterable(search_raw)):
-            if "%" not in word:
-                search_clean.append(word)
-        return search_raw, search_clean
+        search = [match.split("+") for match in match_list if "%" not in match]
+
+        return search
 
     def comment_history(self):
         try:
