@@ -23,14 +23,9 @@ class HTML:
 
     def find_links(self):
         # search all links based on your personal html file
-        links = []
-        pattern = re.compile(r"Watched.<.*?>")
-        match_list = pattern.findall(str(HTML.html_watch))
+        pattern = re.compile(r"(https://www.youtube.com/watch\?.*?)(?=\")")
+        links = pattern.findall(str(HTML.html_watch))
 
-        # save links into list
-        for match in match_list:
-            match = match.split('"')[1]
-            links.append(match)
         return links
 
     def _find_times(self):
