@@ -119,7 +119,7 @@ class Visualization:
 
     def wordCloud(self):
         print("Generating Word Cloud.....")
-        unique_string = (" ").join(search_history)
+        unique_string = " ".join(search_history)
         bg = np.array(Image.open(logo))
         stop_words = ["porn", "nigga", "pussy"]
         font = (
