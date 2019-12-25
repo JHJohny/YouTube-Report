@@ -45,14 +45,13 @@ class HTML:
 
         return search
 
-    def comment_history(self):
-        try:
-            pattern = re.compile(r'<a href=".*?">')
-            match_list = pattern.findall(str(HTML.html_comment))
-            link = match_list[-1][9:][:-2]
-            return link, match_list
-        except Exception:
-            pass
+    def get_commented_videos_links(self):
+        pattern = re.compile(r'(?<=on <a href=\")(http://www\.youtube\.com/watch\?v=.*?)(?=\")')
+        links = pattern.findall(str(HTML.html_comment))
+
+        print(links)
+        print("Links are")
+        return links
 
     def like_history(self):
         with open(like_history, "rb") as f:
