@@ -22,7 +22,7 @@ from parse import HTML
 image_dir = os.getcwd() + "/Images/"
 logo = image_dir + "LOGO.png"
 urls = HTML().find_links()
-search_raw, search_clean = HTML().search_history()
+search_history = HTML().search_history()
 
 try:
     link, all_links = HTML().comment_history()
@@ -123,7 +123,7 @@ class Visualization:
 
     def wordCloud(self):
         print("Generating Word Cloud.....")
-        unique_string = (" ").join(search_clean)
+        unique_string = (" ").join(search_history)
         bg = np.array(Image.open(logo))
         stop_words = ["porn", "nigga", "pussy"]
         font = (
@@ -158,7 +158,7 @@ class Visualization:
 
         plt.annotate(
             "      WordCloud is based on a total of "
-            + str(len(search_clean))
+            + str(len(search_history))
             + " search queries",
             (0, 0),
             (-10, 10),
@@ -181,7 +181,7 @@ class Visualization:
         splot = sns.barplot(
             x=[
                 len(HTML().find_links()),
-                len(search_clean),
+                len(search_history),
                 len(all_likes),
                 len(all_links),
             ],
@@ -214,7 +214,7 @@ class Visualization:
             math.log(
                 (
                     len(urls)
-                    + len(search_clean * 2)
+                    + len(search_history * 2)
                     + len(all_likes * 3)
                     + len(all_links * 4)
                 )
@@ -332,7 +332,7 @@ class Visualization:
         items5 = []
         link5 = (
             "<link href="
-            ">" + str(re.sub("[^\w\s]", "", str(search_raw[-1]))) + "</link>"
+            ">" + str(re.sub("[^\w\s]", "", str(search_history[-1]))) + "</link>"
         )
         items5.append(Paragraph(link5, body_style))
         f5 = Frame(inch * 23.7, inch * 8.73, inch * 12, inch * 2)
