@@ -23,11 +23,7 @@ image_dir = os.getcwd() + "/Images/"
 logo = image_dir + "LOGO.png"
 urls = HTML().find_links()
 search_history = HTML().search_history()
-
-try:
-    link, all_links = HTML().comment_history()
-except TypeError:
-    link = all_links = ""
+commented_video_links = HTML().get_commented_videos_links()
 
 try:
     like, all_likes = HTML().like_history()
@@ -183,7 +179,7 @@ class Visualization:
                 len(HTML().find_links()),
                 len(search_history),
                 len(all_likes),
-                len(all_links),
+                len(commented_video_links),
             ],
             y=["Watch", "Search", "Like", "Comment"],
             palette="Blues",
@@ -216,7 +212,7 @@ class Visualization:
                     len(urls)
                     + len(search_history * 2)
                     + len(all_likes * 3)
-                    + len(all_links * 4)
+                    + len(commented_video_links * 4)
                 )
                 / 9,
                 1.12,
